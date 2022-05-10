@@ -35,7 +35,6 @@ export class News extends Component {
 
     this.setState({
       articles: parsed.articles,
-      loading: false,
       totalResults: parsed.totalResults
     });
   }
@@ -49,7 +48,6 @@ export class News extends Component {
     this.setState({
       articles: this.state.articles.concat(parsed.articles),
       page: this.state.page+1,
-      loading:false,
     });
 
   }
@@ -64,7 +62,7 @@ export class News extends Component {
           {this.props.category.charAt(0).toUpperCase() +
             this.props.category.slice(1)}
         </h3>
-        {this.state.loading && <Spinner/>}
+        
         <InfiniteScroll
           dataLength={this.state.articles.length}
           next={this.fetchMoreData}
