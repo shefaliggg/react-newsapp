@@ -71,7 +71,7 @@ export class News extends Component {
           hasMore={this.state.articles!=this.state.totalResults}
           loader={<Spinner/>}
         >
-        <div className="container">
+        <div className="container my-3">
           <div className="row">
             {this.state.articles.map((element) => {
               if (element.urlToImage) {
