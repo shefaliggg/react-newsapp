@@ -28,7 +28,8 @@ export class News extends Component {
   }
 
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&pagesize=${this.props.pagesize}&apiKey=8c58715fc4c44d45a522ced182ef9c71&page=${this.state.page}`;
+    this.props.setProgress(0);
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&pagesize=${this.props.pagesize}&apiKey=${this.props.apiKey}&page=${this.state.page}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsed = await data.json();
@@ -37,10 +38,11 @@ export class News extends Component {
       articles: parsed.articles,
       totalResults: parsed.totalResults
     });
+    this.props.setProgress(100);
   }
 
   fetchMoreData= async()=>{
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&pagesize=${this.props.pagesize}&apiKey=8c58715fc4c44d45a522ced182ef9c71&page=${this.state.page+1}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&pagesize=${this.props.pagesize}&apiKey=${this.props.apiKey}&page=${this.state.page+1}`;
     this.setState({loading:true});
     let data = await fetch(url);
     let parsed = await data.json();
@@ -69,7 +71,7 @@ export class News extends Component {
           hasMore={this.state.articles!=this.state.totalResults}
           loader={<Spinner/>}
         >
-        <div className="container">
+        <div className="container my-3">
           <div className="row">
             {this.state.articles.map((element) => {
               if (element.urlToImage) {
